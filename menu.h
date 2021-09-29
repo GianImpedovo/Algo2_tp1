@@ -94,4 +94,11 @@ void construir_edificio(ciudad * andypolis,int posicion_edificio);
 // Pos: Lista edificios construidos al menos 1 vez.
 void listar_edificios_construidos(ciudad * andypolis);
 
+
+// Pre: - 
+// Pos: Lista todos los edificios con sus materiales necesarios , cuantos fueron cosntruidos y 
+//      cuantos puedo construir.
+void listar_todos_edificios(ciudad * andypolis);
+
+
 #endif // MENU_H

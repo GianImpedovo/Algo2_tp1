@@ -48,7 +48,7 @@ int elegir_opcion(){
 
 
 void procesar_opcion(int opcion, ciudad * andypolis){
-    int posicion_edificio_elegido;
+    int edificio_elegido;
     string nombre_edificio;
 
     switch (opcion)
@@ -58,12 +58,12 @@ void procesar_opcion(int opcion, ciudad * andypolis){
         break;
 
     case CONSTRUIR_EDIFICIO:
-        posicion_edificio_elegido = elegir_edificio(andypolis); 
-        if ( posicion_edificio_elegido != INEXISTENTE ){
-            if (existen_materiales(andypolis, posicion_edificio_elegido) && construccion_permitida(andypolis, posicion_edificio_elegido)){
-                construir_edificio(andypolis, posicion_edificio_elegido);
+        edificio_elegido = elegir_edificio(andypolis); 
+        if ( edificio_elegido != INEXISTENTE ){
+            if (existen_materiales(andypolis, edificio_elegido) && construccion_permitida(andypolis, edificio_elegido)){
+                construir_edificio(andypolis, edificio_elegido);
 
-                nombre_edificio = andypolis-> edificios[ posicion_edificio_elegido ] -> nombre;
+                nombre_edificio = andypolis-> edificios[ edificio_elegido ] -> nombre;
 
                 cout << "EDIFICIO : " << nombre_edificio;
                 cout << " CONSTRUIDO" << endl;
@@ -76,7 +76,7 @@ void procesar_opcion(int opcion, ciudad * andypolis){
         break;
 
     case LISTAR_TODOS_EDIFICIOS:
-        /* code */
+        listar_todos_edificios(andypolis);
         break;
     case DEMOLER_EDIFICIO:
         /* code */
@@ -305,3 +305,22 @@ void listar_edificios_construidos(ciudad * andypolis){
 }
 
 // 4) listar todos los edificios : 
+
+void listar_todos_edificios(ciudad * andypolis){
+    for ( int i = 0; i < andypolis -> cantidad_edificios; i++){
+        string nombre = andypolis -> edificios[ i ] -> nombre;
+        int madera = andypolis -> edificios[ i ] -> cantidad_madera;
+        int piedra = andypolis -> edificios[ i ] -> cantidad_piedra;
+        int metal = andypolis -> edificios[ i ] -> cantidad_metal;
+        int construidos = andypolis -> edificios[ i ] -> cantidad_construidos;
+        int maximo = andypolis -> edificios[ i ] -> max_permitidos;
+        int restantes = maximo - construidos;
+
+        cout << nombre << " -> madera : " << madera;
+        cout << " - piedra: " << piedra;
+        cout << " - metal : " << metal;
+        cout << " - construidos : " << construidos;
+        cout << " - se pueden construir : " << restantes << endl;
+
+    }
+}
