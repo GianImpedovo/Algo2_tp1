@@ -8,6 +8,7 @@ using namespace std;
 const string PIEDRA = "piedra";
 const string MADERA = "madera";
 const string METAL = "metal";
+const int INEXISTENTE = -1;
 
 
 void mostrar_menu(){
@@ -57,13 +58,17 @@ void procesar_opcion(int opcion, ciudad * andypolis){
         break;
     case CONSTRUIR_EDIFICIO:
         posicion_edificio_elegido = elegir_edificio(andypolis); 
-        nombre_edificio = andypolis-> edificios[ posicion_edificio_elegido ] -> nombre;
+        if ( posicion_edificio_elegido != INEXISTENTE ){
+            if (existen_materiales(andypolis, posicion_edificio_elegido) && construccion_permitida(andypolis, posicion_edificio_elegido)){
+                construir_edificio(andypolis, posicion_edificio_elegido);
 
-        if (existen_materiales(andypolis, posicion_edificio_elegido) && construccion_permitida(andypolis, posicion_edificio_elegido)){
-            construir_edificio(andypolis, posicion_edificio_elegido);
-            cout << "EDIFICIO : " << nombre_edificio;
-            cout << " CONSTRUIDO" << endl;
+                nombre_edificio = andypolis-> edificios[ posicion_edificio_elegido ] -> nombre;
+
+                cout << "EDIFICIO : " << nombre_edificio;
+                cout << " CONSTRUIDO" << endl;
+            }
         }
+
 
         break;
     case LISTAR_EDIFICIOS_CONSTRUIDOS:
@@ -261,7 +266,7 @@ bool construccion_permitida(ciudad * andypolis,int posicion_edificio){
     return construccion_permitida;
 }
 
-void construir_edificio(ciudad * andypolis,int posicion_edificio){
+void construir_edificio(ciudad * andypolis,int posicion_edificio){ 
     // - eliminar la cantidad materiales usados [x] 
     // - sumar edificio al objeto edificio elegido [x]
 

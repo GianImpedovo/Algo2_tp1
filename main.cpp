@@ -19,6 +19,10 @@ int main(){
 
         procesar_opcion(opcion, andypolis);
 
+        for ( int i = 0; i < andypolis->cantidad_materiales; i++){
+            cout << andypolis->materiales[i]->cantidad;
+        }
+
         mostrar_menu();
         opcion = elegir_opcion();
     }
