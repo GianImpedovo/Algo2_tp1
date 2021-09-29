@@ -8,12 +8,16 @@ using namespace std;
 
 int main(){
 
-    ciudad * andynopolis = new ciudad;
+    ciudad * andypolis = new ciudad;
+    procesar_archivo_materiales(andypolis);
+    procesar_archivo_edificios(andypolis);
 
     mostrar_menu();
     int opcion = elegir_opcion();
 
     while ( opcion != GUARDAR_SALIR ){
+
+        procesar_opcion(opcion, andypolis);
 
         mostrar_menu();
         opcion = elegir_opcion();
@@ -21,7 +25,7 @@ int main(){
 
 
     // liberar memoria 
-    delete andynopolis;
+    delete andypolis;
     return 0;
 }
 

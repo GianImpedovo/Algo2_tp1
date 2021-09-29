@@ -13,6 +13,7 @@
 using namespace std;
 
 const string ARCHIVO_MATERIALES = "materiales.txt";
+const string ARCHIVO_EDIFICIOS = "edificios.txt";
 int const LISTAR_MATERIAL = 1;
 int const CONSTRUIR_EDIFICIO = 2;
 int const LISTAR_EDIFICIOS_CONSTRUIDOS = 3;
@@ -53,7 +54,14 @@ void mostrar_menu();
 // Pos: Devuelve la opcion elegida , ya validada , del usuario.
 int elegir_opcion();
 
-void procesar_archivo_materiales(ciudad * andynopolis);
+void procesar_opcion(int opcion, ciudad * andypolis);
+
+void procesar_archivo_materiales(ciudad * andypolis);
+
+void procesar_archivo_edificios(ciudad * andypolis);
+
+void listar_materiales_construccion(ciudad * andypolis);
+
 
 
 #endif // MENU_H

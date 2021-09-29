@@ -1,1 +1,3 @@
 piedra 200
+madera 100
+metal 300
