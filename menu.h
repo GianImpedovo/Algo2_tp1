@@ -54,13 +54,31 @@ void mostrar_menu();
 // Pos: Devuelve la opcion elegida , ya validada , del usuario.
 int elegir_opcion();
 
-void procesar_opcion(int opcion, ciudad * andypolis);
-
+// Pre: Recibe el puntero ciudad ya creado.
+// Pos: Guarda la informacion del archivo materiales dentro de la struct ciudad.
 void procesar_archivo_materiales(ciudad * andypolis);
 
+// Pre: Recibe el puntero ciudad ya creado.
+// Pos: Guarda la informacion del archivo edificios dentro de la struct ciudad.
 void procesar_archivo_edificios(ciudad * andypolis);
 
+// Pre: 0 < opcion < 6 , y la ciudad andynopolis con los archivos ya procesados 
+// Pos: Se dirige a la opcion elegida por el usuario.
+void procesar_opcion(int opcion, ciudad * andypolis);
+
+// Pre: Recibe la ciudad para utilizar la parte de los materiales, el vector materiales.
+// Pos: - 
 void listar_materiales_construccion(ciudad * andypolis);
+
+int elegir_edificio(ciudad * andypolis);
+
+bool existen_materiales(ciudad * andypolis,int posicion_edificio_elegido);
+
+bool construccion_permitida(ciudad * andypolis,int posicion_edificio);
+
+int obtener_cantidad_material(string material, ciudad * andypolis);
+
+void construir_edificio(ciudad * andypolis,int posicion_edificio);
 
 
 

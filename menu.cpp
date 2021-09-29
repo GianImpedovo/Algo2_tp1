@@ -1,9 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "menu.h"
 
 using namespace std;
 
+const string PIEDRA = "piedra";
+const string MADERA = "madera";
+const string METAL = "metal";
 
 
 void mostrar_menu(){
@@ -43,13 +47,24 @@ int elegir_opcion(){
 
 
 void procesar_opcion(int opcion, ciudad * andypolis){
+    int posicion_edificio_elegido;
+    string nombre_edificio;
+
     switch (opcion)
     {
     case LISTAR_MATERIAL:
         listar_materiales_construccion(andypolis);
         break;
     case CONSTRUIR_EDIFICIO:
-        /* code */
+        posicion_edificio_elegido = elegir_edificio(andypolis); 
+        nombre_edificio = andypolis-> edificios[ posicion_edificio_elegido ] -> nombre;
+
+        if (existen_materiales(andypolis, posicion_edificio_elegido) && construccion_permitida(andypolis, posicion_edificio_elegido)){
+            construir_edificio(andypolis, posicion_edificio_elegido);
+            cout << "EDIFICIO : " << nombre_edificio;
+            cout << " CONSTRUIDO" << endl;
+        }
+
         break;
     case LISTAR_EDIFICIOS_CONSTRUIDOS:
         /* code */
@@ -62,6 +77,8 @@ void procesar_opcion(int opcion, ciudad * andypolis){
         break;
     }
 }
+
+// proceso los archivos :
 
 void procesar_archivo_materiales(ciudad * andypolis){
     ifstream archivo;
@@ -159,6 +176,8 @@ void procesar_archivo_edificios(ciudad * andypolis){
     archivo.close();
 }
 
+// 1) listar materiales : 
+
 void listar_materiales_construccion(ciudad * andypolis){
     cout << "\n" << endl;
     for ( int i = 0; i < andypolis->cantidad_materiales; i++){
@@ -167,3 +186,100 @@ void listar_materiales_construccion(ciudad * andypolis){
     }
 }
 
+// 2) construir edificio : 
+
+int elegir_edificio(ciudad * andypolis){
+    string edificio_elegido;
+    cout << "Elegir edificio para construir : ";
+    cin >> edificio_elegido;
+
+    int posicion_edificio = -1;
+    for ( int i = 0; i < andypolis -> cantidad_edificios; i++){
+        if ( andypolis-> edificios[ i ] -> nombre == edificio_elegido){
+            posicion_edificio = i;
+        }
+    }
+    if ( posicion_edificio == -1 ){
+        cout << "El edificio que desea construir no existe " << endl;
+    }
+
+    return posicion_edificio;
+}
+
+int obtener_cantidad_material(string material, ciudad * andypolis){
+    int cantidad = 0;
+    for ( int i = 0 ; i < andypolis->cantidad_materiales; i++){
+        if ( andypolis->materiales[i]->nombre == material){
+            cantidad = andypolis->materiales[i]->cantidad;
+        }
+    }
+    return cantidad;
+}
+
+bool existen_materiales(ciudad * andypolis,int posicion_edificio){
+
+    bool existen_materiales = false;
+
+    int piedra_necesaria = andypolis-> edificios[ posicion_edificio ] -> cantidad_piedra;
+    int madera_necesaria = andypolis-> edificios[ posicion_edificio ] -> cantidad_madera;
+    int metal_necesario = andypolis-> edificios[ posicion_edificio ] -> cantidad_metal;
+
+    int piedra_actual = obtener_cantidad_material(PIEDRA, andypolis);
+    int madera_actual = obtener_cantidad_material(MADERA, andypolis);
+    int metal_actual = obtener_cantidad_material(METAL, andypolis);
+
+    if ( piedra_necesaria <= piedra_actual ){
+        if ( madera_necesaria <= madera_actual){
+            if (metal_necesario <= metal_actual){
+                existen_materiales = true;
+            }else{
+                cout << "No tenes METAL suficiente " << endl;
+            }
+        }else {
+            cout << "No tenes MADERA suficiente " << endl;
+        }
+    }else {
+        cout << "No tenes PIEDRA suficiente " << endl;
+    }
+
+
+    return existen_materiales;
+}
+
+bool construccion_permitida(ciudad * andypolis,int posicion_edificio){
+    bool construccion_permitida = false;
+    int construcciones_existentes = andypolis-> edificios[ posicion_edificio] ->cantidad_construidos;
+    int construcciones_permitidas = andypolis-> edificios[ posicion_edificio] ->max_permitidos;
+
+    if ( construcciones_existentes < construcciones_permitidas ){
+        construccion_permitida = true;
+    } else {
+        cout << "No se puede construir ya que supera el limite de cantidad de " << andypolis->edificios[ posicion_edificio]->nombre;
+        cout << " construidos." << endl;
+    }
+
+    return construccion_permitida;
+}
+
+void construir_edificio(ciudad * andypolis,int posicion_edificio){
+    // - eliminar la cantidad materiales usados [x] 
+    // - sumar edificio al objeto edificio elegido [x]
+
+    int piedra_usada = andypolis-> edificios[ posicion_edificio ]-> cantidad_piedra;
+    int madera_usada = andypolis-> edificios[ posicion_edificio ]-> cantidad_madera;
+    int metal_usado = andypolis-> edificios[ posicion_edificio ]-> cantidad_metal;
+
+    for ( int i = 0; i < andypolis->cantidad_materiales; i++){
+        if ( andypolis-> materiales[ i ]-> nombre == PIEDRA){
+            andypolis-> materiales[ i ]-> cantidad -= piedra_usada;
+        }
+        else if ( andypolis-> materiales[ i ]-> nombre == MADERA){
+            andypolis-> materiales[ i ]-> cantidad -= madera_usada;
+        }
+        else if ( andypolis-> materiales[ i ]-> nombre == METAL){
+            andypolis-> materiales[ i ]-> cantidad -= metal_usado;
+        }
+    }
+
+    andypolis-> edificios[ posicion_edificio ]-> cantidad_construidos += 1;
+}
