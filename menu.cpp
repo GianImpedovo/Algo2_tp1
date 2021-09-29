@@ -56,6 +56,7 @@ void procesar_opcion(int opcion, ciudad * andypolis){
     case LISTAR_MATERIAL:
         listar_materiales_construccion(andypolis);
         break;
+
     case CONSTRUIR_EDIFICIO:
         posicion_edificio_elegido = elegir_edificio(andypolis); 
         if ( posicion_edificio_elegido != INEXISTENTE ){
@@ -68,12 +69,12 @@ void procesar_opcion(int opcion, ciudad * andypolis){
                 cout << " CONSTRUIDO" << endl;
             }
         }
-
-
         break;
+
     case LISTAR_EDIFICIOS_CONSTRUIDOS:
-        /* code */
+        listar_edificios_construidos(andypolis);
         break;
+
     case LISTAR_TODOS_EDIFICIOS:
         /* code */
         break;
@@ -288,3 +289,19 @@ void construir_edificio(ciudad * andypolis,int posicion_edificio){
 
     andypolis-> edificios[ posicion_edificio ]-> cantidad_construidos += 1;
 }
+
+// 3) listar edificios construidos : 
+
+void listar_edificios_construidos(ciudad * andypolis){
+    for ( int i = 0; i < andypolis -> cantidad_edificios; i++){
+        if ( andypolis -> edificios [ i ] ->cantidad_construidos > 0){
+            int construidos = andypolis -> edificios [ i ] ->cantidad_construidos;
+            string nombre = andypolis -> edificios [ i ] -> nombre;
+
+            cout << nombre << " - " << construidos << endl; 
+
+        }
+    }
+}
+
+// 4) listar todos los edificios : 

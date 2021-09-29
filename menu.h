@@ -70,16 +70,28 @@ void procesar_opcion(int opcion, ciudad * andypolis);
 // Pos: - 
 void listar_materiales_construccion(ciudad * andypolis);
 
+// Pre: - 
+// Pos: Devuelve la posicion del edificio solicitado por el usuario.
 int elegir_edificio(ciudad * andypolis);
 
-bool existen_materiales(ciudad * andypolis,int posicion_edificio_elegido);
-
-bool construccion_permitida(ciudad * andypolis,int posicion_edificio);
-
+// Pre: - 
+// Pos: Devuelve la cantidad de materiales que se encuentran para utilizar.
 int obtener_cantidad_material(string material, ciudad * andypolis);
 
+// Pre: - 
+// Pos: Verifica si existen la cantidad de materiales necesarios.
+bool existen_materiales(ciudad * andypolis,int posicion_edificio_elegido);
+
+// Pre: - 
+// Pos: Verifica que no se supere la cantidad de edificios disponibles para construir.
+bool construccion_permitida(ciudad * andypolis,int posicion_edificio);
+
+// Pre: - 
+// Pos: Elimina la cantidad de materiales usados y agrega un edificio a la cantidad de edificios cosntruidos.
 void construir_edificio(ciudad * andypolis,int posicion_edificio);
 
-
+// Pre: - 
+// Pos: Lista edificios construidos al menos 1 vez.
+void listar_edificios_construidos(ciudad * andypolis);
 
 #endif // MENU_H
