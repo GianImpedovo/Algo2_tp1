@@ -24,15 +24,15 @@ int const GUARDAR_SALIR = 6;
 struct material
 {
     string nombre;
-    int cantidad;
+    float cantidad;
 };
 
 struct edificio
 {
     string nombre;
-    int cantidad_madera;
-    int cantidad_piedra;
-    int cantidad_metal;
+    float cantidad_madera;
+    float cantidad_piedra;
+    float cantidad_metal;
     int cantidad_construidos;
     int max_permitidos;
 };
@@ -76,7 +76,8 @@ int elegir_edificio(ciudad * andypolis);
 
 // Pre: - 
 // Pos: Devuelve la cantidad de materiales que se encuentran para utilizar.
-int obtener_cantidad_material(string material, ciudad * andypolis);
+float obtener_cantidad_material(string material, ciudad * andypolis);
+
 
 // Pre: - 
 // Pos: Verifica si existen la cantidad de materiales necesarios.
@@ -99,6 +100,14 @@ void listar_edificios_construidos(ciudad * andypolis);
 // Pos: Lista todos los edificios con sus materiales necesarios , cuantos fueron cosntruidos y 
 //      cuantos puedo construir.
 void listar_todos_edificios(ciudad * andypolis);
+
+
+int obtener_posicion_material(string material, ciudad  * andypolis);
+
+void sumar_materiales(ciudad * andypolis, int posicion_edificio);
+
+void demoler_edificio(ciudad * andypolis );
+
 
 
 #endif // MENU_H
