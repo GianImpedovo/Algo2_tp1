@@ -382,10 +382,45 @@ void demoler_edificio(ciudad * andypolis ){
 // 6) guardar y salir: 
 
 void actualizar_archivo_materiales(ciudad * andypolis){
+    ofstream archivo;
+    archivo.open(ARCHIVO_MATERIALES);
+
+    int cantidad_materiales = andypolis -> cantidad_materiales;
+
+    for ( int i = 0; i < cantidad_materiales; i++){
+        archivo << andypolis ->materiales[i] ->nombre << ' '
+                << andypolis ->materiales[i] ->cantidad << "\n";
+        delete andypolis -> materiales[i];
+        andypolis -> cantidad_materiales--;
+        
+    }
+    delete [] andypolis->materiales;
+    andypolis -> materiales = nullptr;
+
+    archivo.close();
     cout << "archivo materiales actualizado" << endl;
 }
 
 void actualizar_archivo_edificios(ciudad * andypolis){
+    ofstream archivo;
+    archivo.open(ARCHIVO_EDIFICIOS);
+
+    int cantidad_edificios = andypolis -> cantidad_edificios;
+
+    for (int i = 0; i < cantidad_edificios; i++){
+        archivo << andypolis ->edificios[i] ->nombre << ' '
+                << andypolis ->edificios[i] ->cantidad_piedra << ' '
+                << andypolis ->edificios[i] ->cantidad_madera << ' '
+                <<  andypolis ->edificios[i] ->cantidad_metal << ' '
+                << andypolis ->edificios[i] ->cantidad_construidos << ' '
+                << andypolis ->edificios[i] ->max_permitidos << '\n';
+        delete andypolis->edificios[i];
+        andypolis -> cantidad_edificios--;
+    }
+    delete [] andypolis -> edificios;
+    andypolis -> edificios = nullptr;
+
+    archivo.close();
     cout << "archivo edificios actualizado" << endl;
 }
 
