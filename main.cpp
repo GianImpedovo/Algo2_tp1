@@ -25,13 +25,12 @@ int main(){
         opcion = elegir_opcion();
     }
 
-    // agregar guardar el archivo y eliminar los datos del heap:
     actualizar_archivo_materiales(andypolis);
     actualizar_archivo_edificios(andypolis);
 
-
-    // liberar memoria 
+    // Libero memoria
     delete andypolis;
+
     return 0;
 }
 
