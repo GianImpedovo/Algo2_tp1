@@ -45,8 +45,6 @@ int elegir_opcion(){
     return opcion;
 }
 
-
-
 void procesar_opcion(int opcion, ciudad * andypolis){
     int edificio_elegido;
     string nombre_edificio;
@@ -361,12 +359,15 @@ void demoler_edificio(ciudad * andypolis ){
     if ( posicion_edificio != INEXISTENTE){
 
         int cantidad_construidos = andypolis -> edificios[posicion_edificio] ->cantidad_construidos;
+        string nombre_edificio = andypolis -> edificios[posicion_edificio] ->nombre;
 
         if ( cantidad_construidos > 0) {
             
             andypolis -> edificios[posicion_edificio] ->cantidad_construidos -= 1;
 
             sumar_materiales(andypolis, posicion_edificio);
+
+            cout << "El edificio : " << nombre_edificio << " fue demolido." << endl;
 
         } else {
             cout << "Este edificio no tiene ninguna construccion " << endl;
@@ -377,3 +378,14 @@ void demoler_edificio(ciudad * andypolis ){
     }
 
 }
+
+// 6) guardar y salir: 
+
+void actualizar_archivo_materiales(ciudad * andypolis){
+    cout << "archivo materiales actualizado" << endl;
+}
+
+void actualizar_archivo_edificios(ciudad * andypolis){
+    cout << "archivo edificios actualizado" << endl;
+}
+

@@ -108,6 +108,9 @@ void sumar_materiales(ciudad * andypolis, int posicion_edificio);
 
 void demoler_edificio(ciudad * andypolis );
 
+void actualizar_archivo_materiales(ciudad * andypolis);
+
+void actualizar_archivo_edificios(ciudad * andypolis);
 
 
 #endif // MENU_H

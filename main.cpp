@@ -19,10 +19,13 @@ int main(){
 
         procesar_opcion(opcion, andypolis);
 
-
         mostrar_menu();
         opcion = elegir_opcion();
     }
+
+    // agregar guardar el archivo y eliminar los datos del heap:
+    actualizar_archivo_materiales(andypolis);
+    actualizar_archivo_edificios(andypolis);
 
 
     // liberar memoria 
