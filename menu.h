@@ -88,6 +88,14 @@ bool existen_materiales(ciudad * andypolis,int posicion_edificio_elegido);
 bool construccion_permitida(ciudad * andypolis,int posicion_edificio);
 
 // Pre: - 
+// Pos: Devuelve la posicion del material al cual le suma 
+int obtener_posicion_material(string material, ciudad  * andypolis);
+
+// Pre: - 
+// Pos: Suma al edificio una construiccion y elimina los materiales usados.
+void sumar_edificio(ciudad * andypolis , int posicion_edificio);
+
+// Pre:  cantidad_edificios > Posicion_edificio > -1 
 // Pos: Elimina la cantidad de materiales usados y agrega un edificio a la cantidad de edificios cosntruidos.
 void construir_edificio(ciudad * andypolis,int posicion_edificio);
 
@@ -101,14 +109,21 @@ void listar_edificios_construidos(ciudad * andypolis);
 //      cuantos puedo construir.
 void listar_todos_edificios(ciudad * andypolis);
 
-int obtener_posicion_material(string material, ciudad  * andypolis);
-
+// Pre: - 
+// Pos: Reintegro los materiales obtenidos luego de la demolicion.
 void sumar_materiales(ciudad * andypolis, int posicion_edificio);
 
+// Pre: - 
+// Pos: Obtengo la posicion del edificio, le resto una construccion 
+//      y retorno la mitad de los materiales utilizados
 void demoler_edificio(ciudad * andypolis );
 
+// Pre: - 
+// Pos: Actualizo el archivo: "materiales.txt" con las ultimas modificaciones y libero la memoria.
 void actualizar_archivo_materiales(ciudad * andypolis);
 
+// Pre: - 
+// Pos: Actualizo el archivo: "edificios.txt" con las ultimas modificaciones y libero la memoria.
 void actualizar_archivo_edificios(ciudad * andypolis);
 
 

@@ -1,3 +1,5 @@
-piedra 1875
-madera 720
-metal 3000
+oro 500
+piedra 1770
+madera 460
+tierra 1000
+metal 3099

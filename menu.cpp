@@ -57,16 +57,7 @@ void procesar_opcion(int opcion, ciudad * andypolis){
     case CONSTRUIR_EDIFICIO:
         edificio_elegido = elegir_edificio(andypolis); 
         if ( edificio_elegido != INEXISTENTE ){
-            if (existen_materiales(andypolis, edificio_elegido) && construccion_permitida(andypolis, edificio_elegido)){
-                construir_edificio(andypolis, edificio_elegido);
-
-                nombre_edificio = andypolis-> edificios[ edificio_elegido ] -> nombre;
-
-                cout << "\n" << "EDIFICIO : " << nombre_edificio;
-                cout << " CONSTRUIDO" << endl;
-            }
-        } else {
-            cout << "\n" <<"El edificio que desea construir no existe " << endl;
+            construir_edificio(andypolis, edificio_elegido);
         }
         break;
 
@@ -264,27 +255,49 @@ bool construccion_permitida(ciudad * andypolis,int posicion_edificio){
     return construccion_permitida;
 }
 
-void construir_edificio(ciudad * andypolis,int posicion_edificio){ 
-    // - eliminar la cantidad materiales usados [x] 
-    // - sumar edificio al objeto edificio elegido [x]
+int obtener_posicion_material(string material, ciudad  * andypolis){
+    int posicion = -1;
+    for ( int i = 0; i < andypolis -> cantidad_materiales; i++){
+        if ( material == andypolis -> materiales[i] ->nombre ){
+            posicion = i;
+        }
+    }
+    return posicion;
+}
+
+void sumar_edificio(ciudad * andypolis , int posicion_edificio){
 
     float piedra_usada = andypolis-> edificios[ posicion_edificio ]-> cantidad_piedra;
     float madera_usada = andypolis-> edificios[ posicion_edificio ]-> cantidad_madera;
     float metal_usado = andypolis-> edificios[ posicion_edificio ]-> cantidad_metal;
 
-    for ( int i = 0; i < andypolis->cantidad_materiales; i++){
-        if ( andypolis-> materiales[ i ]-> nombre == PIEDRA){
-            andypolis-> materiales[ i ]-> cantidad -= piedra_usada;
-        }
-        else if ( andypolis-> materiales[ i ]-> nombre == MADERA){
-            andypolis-> materiales[ i ]-> cantidad -= madera_usada;
-        }
-        else if ( andypolis-> materiales[ i ]-> nombre == METAL){
-            andypolis-> materiales[ i ]-> cantidad -= metal_usado;
-        }
-    }
+    // Resto los materiales utilizados
+    int posicion_madera = obtener_posicion_material(MADERA,andypolis);
+    int posicion_piedra = obtener_posicion_material(PIEDRA,andypolis);
+    int posicion_metal = obtener_posicion_material(METAL,andypolis);
+
+    andypolis -> materiales[posicion_madera] -> cantidad -= madera_usada;
+    andypolis -> materiales[posicion_piedra] -> cantidad -= piedra_usada;
+    andypolis -> materiales[posicion_metal] -> cantidad -= metal_usado;
 
     andypolis-> edificios[ posicion_edificio ]-> cantidad_construidos += 1;
+
+}
+
+void construir_edificio(ciudad * andypolis,int posicion_edificio){ 
+
+        if (existen_materiales(andypolis, posicion_edificio) && construccion_permitida(andypolis, posicion_edificio)){
+
+            sumar_edificio(andypolis, posicion_edificio);
+
+            string nombre_edificio = andypolis-> edificios[ posicion_edificio ] -> nombre;
+
+            cout << "\n" << "\t ¡ EDIFICIO : " << nombre_edificio;
+            cout << " CONSTRUIDO !" << "\n" <<endl;
+
+        } else {
+            cout << "\n" <<"El edificio que desea construir no existe " << endl;
+        }
 }
 
 // 3) listar edificios construidos : 
@@ -328,32 +341,22 @@ void listar_todos_edificios(ciudad * andypolis){
 
 // 5) demoler un edificio por nombre :
 
-int obtener_posicion_material(string material, ciudad  * andypolis){
-    int posicion = -1;
-    for ( int i = 0; i < andypolis -> cantidad_materiales; i++){
-        if ( material == andypolis -> materiales[i] ->nombre ){
-            posicion = i;
-        }
-    }
-    return posicion;
-}
-
 void sumar_materiales(ciudad * andypolis, int posicion_edificio){
-            float madera_edificio = andypolis -> edificios[posicion_edificio] -> cantidad_madera;
-            float piedra_edificio = andypolis -> edificios[posicion_edificio] -> cantidad_piedra;
-            float metal_edificio = andypolis -> edificios[posicion_edificio] -> cantidad_metal;
+    float madera_edificio = andypolis -> edificios[posicion_edificio] -> cantidad_madera;
+    float piedra_edificio = andypolis -> edificios[posicion_edificio] -> cantidad_piedra;
+    float metal_edificio = andypolis -> edificios[posicion_edificio] -> cantidad_metal;
 
-            float madera_obtenida = madera_edificio / 2;
-            float piedra_obtenida = piedra_edificio / 2;
-            float metal_obtenido = metal_edificio / 2;
+    float madera_obtenida = madera_edificio / 2;
+    float piedra_obtenida = piedra_edificio / 2;
+    float metal_obtenido = metal_edificio / 2;
 
-            int posicion_madera = obtener_posicion_material(MADERA,andypolis);
-            int posicion_piedra = obtener_posicion_material(PIEDRA,andypolis);
-            int posicion_metal = obtener_posicion_material(METAL,andypolis);
+    int posicion_madera = obtener_posicion_material(MADERA,andypolis);
+    int posicion_piedra = obtener_posicion_material(PIEDRA,andypolis);
+    int posicion_metal = obtener_posicion_material(METAL,andypolis);
 
-            andypolis -> materiales[posicion_madera] -> cantidad += madera_obtenida;
-            andypolis -> materiales[posicion_piedra] -> cantidad += piedra_obtenida;
-            andypolis -> materiales[posicion_metal] -> cantidad += metal_obtenido;
+    andypolis -> materiales[posicion_madera] -> cantidad += madera_obtenida;
+    andypolis -> materiales[posicion_piedra] -> cantidad += piedra_obtenida;
+    andypolis -> materiales[posicion_metal] -> cantidad += metal_obtenido;
 
 }
 
@@ -371,7 +374,7 @@ void demoler_edificio(ciudad * andypolis ){
 
             sumar_materiales(andypolis, posicion_edificio);
 
-            cout << "\nEl edificio : " << nombre_edificio << " fue demolido." << endl;
+            cout << "\n\t --- El edificio : " << nombre_edificio << " fue demolido. --- \n" << endl;
 
         } else {
             cout << "\nEste edificio no tiene ninguna construccion " << endl;
@@ -402,7 +405,7 @@ void actualizar_archivo_materiales(ciudad * andypolis){
     andypolis -> materiales = nullptr;
 
     archivo.close();
-    cout << "\t ### Archivo MATERIALES ACTUALIZADO " << endl;
+    cout << "\t --> Archivo MATERIALES ACTUALIZADO " << endl;
 }
 
 void actualizar_archivo_edificios(ciudad * andypolis){
@@ -425,6 +428,5 @@ void actualizar_archivo_edificios(ciudad * andypolis){
     andypolis -> edificios = nullptr;
 
     archivo.close();
-    cout << "\t ### Archivo EDIFICIOS ACTUALIZADO" << endl;
+    cout << "\t --> Archivo EDIFICIOS ACTUALIZADO" << endl;
 }
-

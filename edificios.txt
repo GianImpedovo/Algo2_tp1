@@ -1,4 +1,5 @@
-yacimiento 125 280 0 1 2
+yacimiento 125 280 0 2 2
 escuela 152 298 45 1 1
-fabrica 100 100 258 4 4
+fabrica 100 100 258 2 4
 aserradero 100 58 50 1 2
+hotel 20 20 20 1 3
