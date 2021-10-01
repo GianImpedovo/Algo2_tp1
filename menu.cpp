@@ -12,7 +12,6 @@ const int INEXISTENTE = -1;
 
 
 void mostrar_menu(){
-    cout << "\n" << endl;
     cout << "1. Listar materiales de construcción. " << endl;
     cout << "2. Construir edificio por nombre." << endl;
     cout << "3. Listar los edificios construidos." << endl;
@@ -63,11 +62,11 @@ void procesar_opcion(int opcion, ciudad * andypolis){
 
                 nombre_edificio = andypolis-> edificios[ edificio_elegido ] -> nombre;
 
-                cout << "EDIFICIO : " << nombre_edificio;
+                cout << "\n" << "EDIFICIO : " << nombre_edificio;
                 cout << " CONSTRUIDO" << endl;
             }
         } else {
-            cout << "El edificio que desea construir no existe " << endl;
+            cout << "\n" <<"El edificio que desea construir no existe " << endl;
         }
         break;
 
@@ -185,11 +184,12 @@ void procesar_archivo_edificios(ciudad * andypolis){
 // 1) listar materiales : 
 
 void listar_materiales_construccion(ciudad * andypolis){
-    cout << "\n" << endl;
+    cout << "\n" << "Los materiales disponibles son : " << "\n" << endl;
     for ( int i = 0; i < andypolis->cantidad_materiales; i++){
         cout << "Material " << i + 1 << " : " << andypolis->materiales[i]->nombre << " , ";
         cout << "Cantidad : " << andypolis->materiales[i]->cantidad << endl;
     }
+    cout << "\n";
 }
 
 // 2) construir edificio : 
@@ -290,20 +290,23 @@ void construir_edificio(ciudad * andypolis,int posicion_edificio){
 // 3) listar edificios construidos : 
 
 void listar_edificios_construidos(ciudad * andypolis){
+    cout << "\n" << "Los edificios construidos son : "<< "\n" << endl;
     for ( int i = 0; i < andypolis -> cantidad_edificios; i++){
         if ( andypolis -> edificios [ i ] ->cantidad_construidos > 0){
             int construidos = andypolis -> edificios [ i ] ->cantidad_construidos;
             string nombre = andypolis -> edificios [ i ] -> nombre;
 
-            cout << nombre << " - " << construidos << endl; 
+            cout << " -> " << nombre << " - " << construidos << endl; 
 
         }
     }
+    cout << "\n";
 }
 
 // 4) listar todos los edificios : 
 
 void listar_todos_edificios(ciudad * andypolis){
+    cout << "\n" << "Todos los edificios : " << "\n" << endl;
     for ( int i = 0; i < andypolis -> cantidad_edificios; i++){
         string nombre = andypolis -> edificios[ i ] -> nombre;
         float madera = andypolis -> edificios[ i ] -> cantidad_madera;
@@ -320,6 +323,7 @@ void listar_todos_edificios(ciudad * andypolis){
         cout << " - se pueden construir : " << restantes << endl;
 
     }
+    cout << "\n";
 }
 
 // 5) demoler un edificio por nombre :
@@ -367,10 +371,10 @@ void demoler_edificio(ciudad * andypolis ){
 
             sumar_materiales(andypolis, posicion_edificio);
 
-            cout << "El edificio : " << nombre_edificio << " fue demolido." << endl;
+            cout << "\nEl edificio : " << nombre_edificio << " fue demolido." << endl;
 
         } else {
-            cout << "Este edificio no tiene ninguna construccion " << endl;
+            cout << "\nEste edificio no tiene ninguna construccion " << endl;
         }
 
     }else {
@@ -398,7 +402,7 @@ void actualizar_archivo_materiales(ciudad * andypolis){
     andypolis -> materiales = nullptr;
 
     archivo.close();
-    cout << "archivo materiales actualizado" << endl;
+    cout << "\t ### Archivo MATERIALES ACTUALIZADO " << endl;
 }
 
 void actualizar_archivo_edificios(ciudad * andypolis){
@@ -421,6 +425,6 @@ void actualizar_archivo_edificios(ciudad * andypolis){
     andypolis -> edificios = nullptr;
 
     archivo.close();
-    cout << "archivo edificios actualizado" << endl;
+    cout << "\t ### Archivo EDIFICIOS ACTUALIZADO" << endl;
 }
 

@@ -101,7 +101,6 @@ void listar_edificios_construidos(ciudad * andypolis);
 //      cuantos puedo construir.
 void listar_todos_edificios(ciudad * andypolis);
 
-
 int obtener_posicion_material(string material, ciudad  * andypolis);
 
 void sumar_materiales(ciudad * andypolis, int posicion_edificio);

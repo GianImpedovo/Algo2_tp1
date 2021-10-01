@@ -12,6 +12,8 @@ int main(){
     procesar_archivo_materiales(andypolis);
     procesar_archivo_edificios(andypolis);
 
+    cout << "\n\t ### Bienvenido a Andynopolis ! ### \n" << endl;
+
     mostrar_menu();
     int opcion = elegir_opcion();
 
