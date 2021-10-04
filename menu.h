@@ -1,9 +1,3 @@
-/*
-// voy a dejar las pre y pos para copiar y no escribirlas,
-// Pre: 
-// Pos: 
-*/
-
 #if !defined(MENU_H)
 #define MENU_H
 
