@@ -58,6 +58,8 @@ void procesar_opcion(int opcion, ciudad * andypolis){
         edificio_elegido = elegir_edificio(andypolis); 
         if ( edificio_elegido != INEXISTENTE ){
             construir_edificio(andypolis, edificio_elegido);
+        } else {
+            cout << "\n--> El edificio que elegiste no existe ! \n" << endl;
         }
         break;
 
@@ -176,9 +178,14 @@ void procesar_archivo_edificios(ciudad * andypolis){
 
 void listar_materiales_construccion(ciudad * andypolis){
     cout << "\n" << "Los materiales disponibles son : " << "\n" << endl;
+    cout << "Orden de los items -> material | cantidad \n" << endl;
     for ( int i = 0; i < andypolis->cantidad_materiales; i++){
-        cout << "Material " << i + 1 << " : " << andypolis->materiales[i]->nombre << " , ";
-        cout << "Cantidad : " << andypolis->materiales[i]->cantidad << endl;
+
+        string material = andypolis->materiales[i]->nombre;
+        float cantidad =  andypolis->materiales[i]->cantidad ;
+
+        cout << material << " | " << cantidad << endl;;
+        cout << "--------------------------" << endl;
     }
     cout << "\n";
 }
@@ -187,7 +194,7 @@ void listar_materiales_construccion(ciudad * andypolis){
 
 int elegir_edificio(ciudad * andypolis){
     string edificio_elegido;
-    cout << "Elegir edificio para construir : ";
+    cout << "\nElegir edificio : ";
     cin >> edificio_elegido;
 
     int posicion_edificio = -1;
@@ -227,13 +234,13 @@ bool existen_materiales(ciudad * andypolis,int posicion_edificio){
             if (metal_necesario <= metal_actual){
                 existen_materiales = true;
             }else{
-                cout << "No tenes METAL suficiente " << endl;
+                cout << "\nNo tenes METAL suficiente " << endl;
             }
         }else {
-            cout << "No tenes MADERA suficiente " << endl;
+            cout << "\nNo tenes MADERA suficiente " << endl;
         }
     }else {
-        cout << "No tenes PIEDRA suficiente " << endl;
+        cout << "\nNo tenes PIEDRA suficiente " << endl;
     }
 
 
@@ -304,12 +311,14 @@ void construir_edificio(ciudad * andypolis,int posicion_edificio){
 
 void listar_edificios_construidos(ciudad * andypolis){
     cout << "\n" << "Los edificios construidos son : "<< "\n" << endl;
+    cout << "Orden de los items -> edificio | construidos\n" << endl;
     for ( int i = 0; i < andypolis -> cantidad_edificios; i++){
         if ( andypolis -> edificios [ i ] ->cantidad_construidos > 0){
             int construidos = andypolis -> edificios [ i ] ->cantidad_construidos;
             string nombre = andypolis -> edificios [ i ] -> nombre;
 
-            cout << " -> " << nombre << " - " << construidos << endl; 
+            cout << nombre << " | " << construidos << endl; 
+            cout << "------------------------" << endl;
 
         }
     }
@@ -320,6 +329,8 @@ void listar_edificios_construidos(ciudad * andypolis){
 
 void listar_todos_edificios(ciudad * andypolis){
     cout << "\n" << "Todos los edificios : " << "\n" << endl;
+    cout << "Orden de los items -> ";
+    cout << "Nombre | madera | piedra | metal | construidos | restantes :\n" << endl;
     for ( int i = 0; i < andypolis -> cantidad_edificios; i++){
         string nombre = andypolis -> edificios[ i ] -> nombre;
         float madera = andypolis -> edificios[ i ] -> cantidad_madera;
@@ -328,12 +339,14 @@ void listar_todos_edificios(ciudad * andypolis){
         int construidos = andypolis -> edificios[ i ] -> cantidad_construidos;
         int maximo = andypolis -> edificios[ i ] -> max_permitidos;
         int restantes = maximo - construidos;
-
-        cout << nombre << " -> madera : " << madera;
-        cout << " - piedra: " << piedra;
-        cout << " - metal : " << metal;
-        cout << " - construidos : " << construidos;
-        cout << " - se pueden construir : " << restantes << endl;
+        
+        
+        cout << nombre << " | " << madera;
+        cout << " | " << piedra;
+        cout << " | " << metal;
+        cout << " | " << construidos;
+        cout << " | " << restantes << endl;
+        cout << "-----------------------------------------------" << endl;
 
     }
     cout << "\n";
@@ -377,11 +390,11 @@ void demoler_edificio(ciudad * andypolis ){
             cout << "\n\t --- El edificio : " << nombre_edificio << " fue demolido. --- \n" << endl;
 
         } else {
-            cout << "\nEste edificio no tiene ninguna construccion " << endl;
+            cout << "\nEste edificio no tiene ninguna construccion \n" << endl;
         }
 
     }else {
-        cout << "El edificio NO existe" << endl;
+        cout << "\n--> El edificio NO existe !\n" << endl;
     }
 
 }

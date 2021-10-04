@@ -95,7 +95,7 @@ int obtener_posicion_material(string material, ciudad  * andypolis);
 // Pos: Suma al edificio una construiccion y elimina los materiales usados.
 void sumar_edificio(ciudad * andypolis , int posicion_edificio);
 
-// Pre:  cantidad_edificios > Posicion_edificio > -1 
+// Pre: cantidad_edificios > Posicion_edificio > -1 
 // Pos: Elimina la cantidad de materiales usados y agrega un edificio a la cantidad de edificios cosntruidos.
 void construir_edificio(ciudad * andypolis,int posicion_edificio);
 
